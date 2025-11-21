@@ -1,0 +1,844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MuscleTech Fitness | Your Strongest Self Is Waiting</title>
+    <!-- Using Inter for a modern, clean look and Montserrat for impact headings --><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            --color-dark: #0A0A10;
+            --color-charcoal: #151520;
+            --color-navy: #0F0F1B;
+            --color-accent: #FF3366; /* Electric Red */
+            --color-text: #E0E0FF;
+            --color-glass-bg: rgba(255, 255, 255, 0.05);
+            --font-heading: 'Montserrat', sans-serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        /* 1. Overall Style & Feel */
+        body {
+            font-family: var(--font-body);
+            color: var(--color-text);
+            /* Subtle Deep Navy to Charcoal Gradient Background */
+            background: radial-gradient(circle at top left, var(--color-navy) 0%, var(--color-charcoal) 70%, var(--color-dark) 100%);
+            min-height: 100vh;
+            margin: 0;
+            padding-top: 5rem; /* Space for sticky header */
+            scroll-behavior: smooth;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-heading);
+            color: var(--color-text);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            margin-bottom: 2.5rem;
+            display: inline-block;
+            line-height: 1.2;
+        }
+
+        /* Glassmorphism Card Style */
+        .glass-card {
+            background: var(--color-glass-bg);
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Neon Accent Text - Adjusted for sharper look */
+        .neon-accent {
+            color: var(--color-accent);
+            /* Sharper text-shadow: reduced blur, tighter spread */
+            text-shadow: 0 0 2px var(--color-accent), 0 0 6px rgba(255, 51, 102, 0.6); 
+        }
+        
+        /* Utility for Sections */
+        section {
+            padding: 5rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Animation Keyframes (Subtle Fade-in on scroll) */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        /* Header Specific Styles */
+        #header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 15, 27, 0.95);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            height: 5rem;
+        }
+        
+        .logo span {
+            font-size: 1.8rem;
+            line-height: 1;
+        }
+
+        /* Navigation Hover Effect */
+        #main-nav a {
+            position: relative;
+        }
+        #main-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--color-accent);
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        #main-nav a:hover::after {
+            width: 100%;
+            left: 0;
+        }
+        
+        /* Specific CSS for FAQ expansion */
+        .faq-item.active .faq-toggle {
+            transform: rotate(45deg);
+        }
+    </style>
+</head>
+<body class="selection:bg-red-700 selection:text-white">
+
+    <!-- 3. Sticky Header + Navigation --><header id="header" class="flex justify-center">
+        <!-- Structural change: Removed justify-between from wrapper and added ml-auto to nav to group nav and button right --><div class="flex items-center w-full max-w-7xl px-5">
+            <div class="logo flex items-center font-black text-2xl tracking-widest">
+                <span class="neon-accent mr-2">&#9889;</span> MUSCLETECH FITNESS
+            </div>
+            <!-- Nav pushed to the right with ml-auto --><nav id="main-nav" class="hidden lg:flex items-center space-x-8 ml-auto">
+                <a href="#about" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">About</a>
+                <a href="#services" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">Services</a>
+                <a href="#plans" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">Plans</a>
+                <a href="#trainers" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">Trainers</a>
+                <a href="#gallery" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">Gallery</a>
+                <a href="#testimonials" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">Testimonials</a>
+                <a href="#contact-tools" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">Contact</a>
+                <a href="#faq" class="text-white hover:text-red-400 transition duration-300 font-semibold text-sm">FAQ</a>
+            </nav>
+            <!-- Button now follows the navigation immediately --><div class="header-action lg:ml-8">
+                <!-- WhatsApp Number: +91 9731762002 --><a href="https://wa.me/919731762002?text=I'm%20ready%20to%20join%20MuscleTech%20Fitness%20and%20looking%20for%20membership%20details." target="_blank" 
+                   class="inline-flex items-center justify-center px-4 py-2 border-2 border-red-600 rounded-full text-sm font-bold text-gray-900 bg-red-600 shadow-xl shadow-red-900/50 
+                          hover:bg-red-700 hover:border-red-700 transition duration-300 transform hover:scale-105">
+                    Join Now (WhatsApp)
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 4. Hero Section --><section id="hero" class="animate-on-scroll pt-20 pb-16 lg:pt-32 lg:pb-24 grid lg:grid-cols-2 gap-10 items-center min-h-[85vh]">
+        <div class="lg:order-1 order-2 text-center lg:text-left">
+            <h1 class="text-5xl md:text-7xl font-extrabold leading-tight mb-4 tracking-tighter">
+                Your <span class="neon-accent">strongest self</span> is waiting.
+            </h1>
+            <p class="text-lg text-gray-300 mb-8 max-w-lg mx-auto lg:mx-0">
+                Unlock your potential with certified trainers, cutting-edge equipment, and flexible, results-driven plans designed for every fitness journey.
+            </p>
+            <div class="flex justify-center lg:justify-start space-x-4 mb-10">
+                <!-- Primary WhatsApp Button --><a href="https://wa.me/919731762002?text=Hello%20MuscleTech%2C%20I'm%20ready%20to%20start%20my%20fitness%20journey%20and%20want%20to%20know%20about%20the%20free%20trial." target="_blank" 
+                   class="px-6 py-3 font-bold text-gray-900 bg-red-600 rounded-full shadow-2xl shadow-red-900/70 hover:bg-red-700 transition duration-300 transform hover:scale-[1.03]">
+                    Message on WhatsApp
+                </a>
+                <!-- Secondary Outline Button (UPDATED to link to Google Maps) --><a href="https://www.google.com/maps/place/Muscle+tech+fitness/@13.062088,77.495327,13z/data=!4m10!1m2!2m1!1sMuscle+tech+fitness!3m6!1s0x3bae3d25dce312ed:0x6a5ed2904c565cd4!8m2!3d13.0502548!4d77.50754!15sChNNdXNjbGUgdGVjaCBmaXRuZXNzWhUiE211c2NsZSB0ZWNoIGZpdG5lc3OSAQNneW2qAUsKDS9nLzExcTdmdjR3MWIQATIfEAEiG5QOUOwPFs4sF_diYGQGmgxTRMa8oy2rqiwnlTIXEAIiE211c2NsZSB0ZWNoIGZpdG5lc3PgAQA!16s%2Fg%2F11q7fv4w1b?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" 
+                   target="_blank"
+                   class="px-6 py-3 font-bold text-red-400 bg-transparent border-2 border-red-400 rounded-full hover:bg-red-900/30 transition duration-300 transform hover:scale-[1.03]">
+                    Visit Our Gym
+                </a>
+            </div>
+            
+            <!-- Stat Badges --><div class="flex flex-wrap justify-center lg:justify-start gap-4 mt-8">
+                <span class="px-3 py-1 bg-white/10 text-xs font-semibold rounded-full border border-red-400/30">500+ Active Members</span>
+                <span class="px-3 py-1 bg-white/10 text-xs font-semibold rounded-full border border-red-400/30">Certified Trainers</span>
+                <span class="px-3 py-1 bg-white/10 text-xs font-semibold rounded-full border border-red-400/30">Open 5 AM – 11 PM</span>
+            </div>
+        </div>
+        
+        <div class="lg:order-2 order-1 flex justify-center">
+            <!-- Hero Image Card --><div class="hero-image-card glass-card w-full max-w-md aspect-video flex justify-center items-center p-0 border-4 border-red-600/50 shadow-2xl shadow-red-900/50">
+                <div class="relative w-full h-full bg-cover bg-center rounded-lg" 
+                     style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSycIw7jfkT7RInU1A2r_th5h6zyDbotZl1GfREOBoLnYFP_LOSViKDEdSbgyY5zQUm7MLtaNnyQC3-HsV0BjeL7QhXe2ZCMPtIholW6Iu7JsfZ0Rn-AOVz8jXW4QYGpAeZPph7EuA=s680-w680-h510-rw');">
+                    <!-- Image will be displayed here --></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. About Section --><section id="about" class="animate-on-scroll pt-16 pb-16">
+        <div class="grid lg:grid-cols-2 gap-12 items-center">
+            <!-- Text Content --><div class="lg:order-1 order-2">
+                <h2 class="section-heading"><span class="neon-accent">The MuscleTech</span> Difference</h2>
+                <p class="text-gray-300 text-lg mb-4">
+                    <strong>We are MuscleTech Fitness,</strong> where hustle meets heart. We stand for **no-excuses dedication** and **smart training**. We believe fitness should be empowering, not intimidating.
+                </p>
+                <p class="text-gray-400">
+                    Our facility is perfect for **busy professionals** needing efficient workouts, **committed athletes** looking for strength gains, and **dedicated beginners** who want a supportive, structured start. Our mission is simple: to help you reach your peak performance, whatever that means to you.
+                </p>
+                <a href="#trainers" class="mt-6 inline-block font-semibold text-red-400 hover:text-red-500 transition duration-300">
+                    Meet Our Certified Team &rarr;
+                </a>
+            </div>
+            
+            <!-- Image Collage Placeholder (Retaining previous image) --><div class="lg:order-2 order-1 relative space-y-4">
+                <!-- TARGET: Image Placeholder: Modern Equipment Floor --><div class="w-full h-64 bg-gray-800 rounded-xl shadow-lg border border-red-600/20 bg-cover bg-center" 
+                     style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSxqVtJRMQgSW9LWB294RG67Kf-NwJxC33BrPoRHXDrlyHQIOKD_yZDwRn9lUkiGsHgrzAnwKn2obVx8uSB2jMjN31WZvr3syHvSrEPfxet6FyRhUy-Z0jMwYkrnMG-Em4liJA74BA=s680-w680-h510-rw');">
+                    <!-- Image will display here --></div>
+                <div class="absolute bottom-[-20px] left-[-20px] w-48 h-48 bg-gray-700/50 rounded-full blur-2xl opacity-60 hidden md:block"></div>
+                <div class="absolute top-10 right-0 w-40 h-40 bg-red-600/30 rounded-full blur-xl opacity-40 hidden md:block"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Services Section (Cards) --><section id="services" class="animate-on-scroll pt-16 pb-16">
+        <h2 class="section-heading text-center">Powering Your <span class="neon-accent">Potential</span></h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+            
+            <!-- Service Card 1 --><div class="glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <span class="text-4xl neon-accent mb-3 block">💪</span>
+                <h3 class="text-xl font-bold mb-2">Strength Training</h3>
+                <p class="text-gray-400 text-sm">Plates, racks, and machines for serious gains. Designed for heavy lifting and progressive overload.</p>
+            </div>
+            
+            <!-- Service Card 2 --><div class="glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <span class="text-4xl neon-accent mb-3 block">🏃</span>
+                <h3 class="text-xl font-bold mb-2">Cardio Zone</h3>
+                <p class="text-gray-400 text-sm">Treadmills, rowers, and ellipticals with integrated tech for tracking endurance goals.</p>
+            </div>
+            
+            <!-- Service Card 3 --><div class="glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <span class="text-4xl neon-accent mb-3 block">🔥</span>
+                <h3 class="text-xl font-bold mb-2">Personal Coaching</h3>
+                <p class="text-gray-400 text-sm">Dedicated one-on-one sessions with certified trainers to accelerate your results.</p>
+            </div>
+            
+            <!-- Service Card 4 --><div class="glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <span class="text-4xl neon-accent mb-3 block">🥗</span>
+                <h3 class="text-xl font-bold mb-2">Nutrition Guidance</h3>
+                <p class="text-gray-400 text-sm">Custom meal plans and dietary advice to fuel your body correctly and support training.</p>
+            </div>
+            
+            <!-- Service Card 5 --><div class="glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <span class="text-4xl neon-accent mb-3 block">👯</span>
+                <h3 class="text-xl font-bold mb-2">Small Group Classes</h3>
+                <p class="text-gray-400 text-sm">High-energy, focused sessions (HIIT, Spin, Yoga) for community and motivation.</p>
+            </div>
+            
+            <!-- Service Card 6 --><div class="glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <span class="text-4xl neon-accent mb-3 block">🛀</span>
+                <h3 class="text-xl font-bold mb-2">Recovery & Mobility</h3>
+                <p class="text-gray-400 text-sm">Dedicated zone with recovery tools to ensure you bounce back faster and prevent injury.</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 7. Membership Plans (Pricing) --><section id="plans" class="animate-on-scroll pt-16 pb-16">
+        <h2 class="section-heading text-center">Flexible <span class="neon-accent">Membership</span> Plans</h2>
+        <p class="text-center text-gray-400 mb-12">Choose the commitment that matches your fitness intensity.</p>
+        
+        <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+            
+            <!-- Plan 1: Monthly --><div class="plan-card glass-card p-8 flex flex-col justify-between text-center hover:scale-[1.01]">
+                <div>
+                    <h3 class="text-2xl font-black mb-2 tracking-wide">Monthly Access</h3>
+                    <div class="text-5xl font-extrabold mb-6 neon-accent">₹3,999<span class="text-xl text-gray-400">/mo</span></div>
+                    <ul class="text-left space-y-3 mb-8 text-gray-300">
+                        <li class="flex items-center"><span class="text-red-500 mr-3 text-lg">&#10003;</span> Full Gym Access</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-3 text-lg">&#10003;</span> Basic Class Attendance</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-3 text-lg">&#10003;</span> Locker & Shower Access</li>
+                        <li class="flex items-center text-gray-500"><span class="text-gray-500 mr-3 text-lg">&mdash;</span> No long-term contract</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/919731762002?text=I'm%20interested%20in%20the%20Monthly%20Plan%20at%20MuscleTech%20Fitness." target="_blank" 
+                   class="w-full mt-auto py-3 font-semibold rounded-full border border-red-500 text-red-400 hover:bg-red-900/40 transition duration-300">
+                    Enquire on WhatsApp
+                </a>
+            </div>
+
+            <!-- Plan 3: Yearly (Highlight) --><div class="plan-card glass-card p-8 flex flex-col justify-between text-center bg-red-900/20 border-red-600 border-2 shadow-red-900/70 shadow-2xl scale-[1.05] lg:scale-[1.07] z-10">
+                <div class="absolute top-0 right-0 bg-red-600 text-gray-900 font-bold px-4 py-1 rounded-bl-lg">BEST VALUE</div>
+                <div>
+                    <h3 class="text-2xl font-black mb-2 tracking-wider neon-accent">Yearly Commitment</h3>
+                    <div class="text-6xl font-extrabold mb-6 neon-accent">₹2,499<span class="text-xl text-gray-400">/mo*</span></div>
+                    <ul class="text-left space-y-3 mb-8 text-gray-100">
+                        <li class="flex items-center"><span class="text-red-400 mr-3 text-lg">&#10003;</span> **All Access Pass**</li>
+                        <li class="flex items-center"><span class="text-red-400 mr-3 text-lg">&#10003;</span> 2 Free PT Sessions (Value: ₹4k)</li>
+                        <li class="flex items-center"><span class="text-red-400 mr-3 text-lg">&#10003;</span> Quarterly Body Assessments</li>
+                        <li class="flex items-center"><span class="text-red-400 mr-3 text-lg">&#10003;</span> 1 Monthly Guest Pass</li>
+                        <li class="flex items-center"><span class="text-red-400 mr-3 text-lg">&#10003;</span> 20% Off Nutrition Plans</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/919731762002?text=I'm%20interested%20in%20the%20Yearly%20Plan%20at%20MuscleTech%20Fitness%20-%20Best%20Value%20Option." target="_blank" 
+                   class="w-full mt-auto py-3 font-black rounded-full bg-red-600 text-gray-900 hover:bg-red-700 transition duration-300 transform hover:scale-[1.02]">
+                    Enquire on WhatsApp
+                </a>
+                <p class="text-xs text-gray-400 mt-2">*Billed as a single upfront payment.</p>
+            </div>
+
+            <!-- Plan 2: Quarterly --><div class="plan-card glass-card p-8 flex flex-col justify-between text-center hover:scale-[1.01]">
+                <div>
+                    <h3 class="text-2xl font-black mb-2 tracking-wide">Quarterly Boost</h3>
+                    <div class="text-5xl font-extrabold mb-6 neon-accent">₹3,499<span class="text-xl text-gray-400">/mo*</span></div>
+                    <ul class="text-left space-y-3 mb-8 text-gray-300">
+                        <li class="flex items-center"><span class="text-red-500 mr-3 text-lg">&#10003;</span> Full Gym Access</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-3 text-lg">&#10003;</span> Premium Class Attendance</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-3 text-lg">&#10003;</span> 1 Free PT Session</li>
+                        <li class="flex items-center"><span class="text-red-500 mr-3 text-lg">&#10003;</span> 10% Off Merchandise</li>
+                    </ul>
+                </div>
+                <a href="https://wa.me/919731762002?text=I'm%20interested%20in%20the%20Quarterly%20Plan%20at%20MuscleTech%20Fitness." target="_blank" 
+                   class="w-full mt-auto py-3 font-semibold rounded-full border border-red-500 text-red-400 hover:bg-red-900/40 transition duration-300">
+                    Enquire on WhatsApp
+                </a>
+                <p class="text-xs text-gray-400 mt-2">*Billed as a single upfront payment.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Trainers Section (Persona Cards) --><section id="trainers" class="animate-on-scroll pt-16 pb-16">
+        <h2 class="section-heading text-center">Meet The <span class="neon-accent">Elite</span> Coaches</h2>
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mt-10">
+            
+            <!-- Trainer Card 1 --><div class="trainer-card glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <div class="w-28 h-28 bg-red-600/70 rounded-full mx-auto mb-4 border-4 border-red-800/50 flex items-center justify-center text-white font-bold text-lg">
+                    Photo 1
+                </div>
+                <h4 class="text-xl font-bold mb-1">Anjali Sharma</h4>
+                <span class="block text-red-400 font-semibold mb-3">Strength Coach</span>
+                <p class="text-sm text-gray-400 italic">"No-nonsense training to build raw, functional power."</p>
+            </div>
+            
+            <!-- Trainer Card 2 --><div class="trainer-card glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <div class="w-28 h-28 bg-red-600/70 rounded-full mx-auto mb-4 border-4 border-red-800/50 flex items-center justify-center text-white font-bold text-lg">
+                    Photo 2
+                </div>
+                <h4 class="text-xl font-bold mb-1">Vikram Reddy</h4>
+                <span class="block text-red-400 font-semibold mb-3">Transformation Specialist</span>
+                <p class="text-sm text-gray-400 italic">"Dedicated to achieving sustainable, jaw-dropping results."</p>
+            </div>
+            
+            <!-- Trainer Card 3 --><div class="trainer-card glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <div class="w-28 h-28 bg-red-600/70 rounded-full mx-auto mb-4 border-4 border-red-800/50 flex items-center justify-center text-white font-bold text-lg">
+                    Photo 3
+                </div>
+                <h4 class="text-xl font-bold mb-1">Priya Singh</h4>
+                <span class="block text-red-400 font-semibold mb-3">Nutrition & Mobility Coach</span>
+                <p class="text-sm text-gray-400 italic">"Fuel your body and master movement for lifetime fitness."</p>
+            </div>
+
+            <!-- Trainer Card 4 --><div class="trainer-card glass-card p-6 text-center hover:shadow-red-800/50 hover:border-red-600 hover:shadow-2xl hover:scale-[1.02] transition duration-300">
+                <div class="w-28 h-28 bg-red-600/70 rounded-full mx-auto mb-4 border-4 border-red-800/50 flex items-center justify-center text-white font-bold text-lg">
+                    Photo 4
+                </div>
+                <h4 class="text-xl font-bold mb-1">Karthik Menon</h4>
+                <span class="block text-red-400 font-semibold mb-3">Endurance & HIIT Expert</span>
+                <p class="text-sm text-gray-400 italic">"High-volume, high-energy coaching to boost your stamina."</p>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- 9. Transformation / Highlight Stats Strip --><section id="stats-strip" class="bg-red-600 text-gray-900 py-16 text-center animate-on-scroll">
+        <div class="max-w-4xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-extrabold mb-3 leading-tight tracking-tight">
+                REAL HUSTLE. REAL RESULTS.
+            </h2>
+            <p class="text-lg font-medium mb-12">
+                Our focused training methodology leads to measurable success for dedicated members.
+            </p>
+            <div class="flex justify-around flex-wrap gap-8">
+                <div class="w-full sm:w-auto p-4 bg-white/10 rounded-lg backdrop-blur-sm text-gray-100 border-2 border-white/30">
+                    <div class="text-5xl font-black mb-1 neon-accent text-red-900">6–8kg</div>
+                    <div class="font-semibold text-sm uppercase">Avg. Fat Loss in 3 Months</div>
+                </div>
+                <div class="w-full sm:w-auto p-4 bg-white/10 rounded-lg backdrop-blur-sm text-gray-100 border-2 border-white/30">
+                    <div class="text-5xl font-black mb-1 neon-accent text-red-900">90%</div>
+                    <div class="font-semibold text-sm uppercase">Member Satisfaction Score</div>
+                </div>
+                <div class="w-full sm:w-auto p-4 bg-white/10 rounded-lg backdrop-blur-sm text-gray-100 border-2 border-white/30">
+                    <div class="text-5xl font-black mb-1 neon-accent text-red-900">10k+</div>
+                    <div class="font-semibold text-sm uppercase">Total Sessions Coached</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 10. Gallery Section --><section id="gallery" class="animate-on-scroll pt-16 pb-16">
+        <h2 class="section-heading text-center">The <span class="neon-accent">MuscleTech</span> Facility</h2>
+        <div class="gallery-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mt-10">
+            
+            <!-- Main Training Floor (Image 1) --><div class="gallery-item glass-card aspect-[4/3] relative overflow-hidden group" data-caption="Weights Area">
+                <div class="w-full h-full bg-gray-800 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" 
+                     style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyAKM2Q1VSODzkXqVIvAWy6WpRp3a37h8LY1BzIR0-yyzD64MmcCGYPpyejo_RtzPlhaGiF3-aBgWVFDim9wgPN42URTTOoZm2EzHxbf4cHD2gOSrvwjHy9ycjXHDuFr7_FDsKJ=s680-w680-h510-rw');">
+                </div>
+                <div class="absolute inset-0 bg-red-600/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                    <span class="text-white font-bold text-lg uppercase">Weights Area</span>
+                </div>
+            </div>
+            
+            <!-- Cardio Zone (Image 2) --><div class="gallery-item glass-card aspect-[4/3] relative overflow-hidden group" data-caption="Cardio Zone">
+                <div class="w-full h-full bg-gray-800 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" 
+                     style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSyu1BudEsqrvsw8Jm1CUC5IGTFTS3Hvb-3gIelKYpDxH3bbarqlMkq4LAehnqigx4yMG4gpUf1NC_14fSgTbxYfnApmvvIoVimMND6jKX8sUG6toCiPl-pUCoPvx0mPYT2WEuOf4qIt26Gf=s680-w680-h510-rw');">
+                </div>
+                <div class="absolute inset-0 bg-red-600/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                    <span class="text-white font-bold text-lg uppercase">Cardio Zone</span>
+                </div>
+            </div>
+            
+            <!-- Functional Area (Image 3) --><div class="gallery-item glass-card aspect-[4/3] relative overflow-hidden group" data-caption="Functional Training">
+                <div class="w-full h-full bg-gray-800 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" 
+                     style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwShjM9EafxGorEqpoCm--RFoyA1Y4AqygM6iM_qFU7m-G_vsJKnAJBrw-v5uinH421_X-Q5cphsmNt-YeNO_yNNdC3qbmxFhCY2Uq871Fidyv4W2leYxhkC5gQG69Q2QKQc9EsHQ=s680-w680-h510-rw');">
+                </div>
+                <div class="absolute inset-0 bg-red-600/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                    <span class="text-white font-bold text-lg uppercase">Functional Training</span>
+                </div>
+            </div>
+            
+            <!-- Free Weights/Dumbbells (Image 4) --><div class="gallery-item glass-card aspect-[4/3] relative overflow-hidden group" data-caption="Free Weights">
+                <div class="w-full h-full bg-gray-800 bg-cover bg-center transition-transform duration-500 group-hover:scale-105" 
+                     style="background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSwUpFBi1Dfd1Jn7aOwqH3_fyrLvdwY6n2HthzJxi12MEuFfYzeDIIPAtjTu5by9XfcEa5_Wgo76L85ScR6hjqyMChxkwzm_FgWa4cNmERtvBVKCXC8PMmvapINlNh052cgJMX9S=s680-w680-h510-rw');">
+                </div>
+                <div class="absolute inset-0 bg-red-600/80 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300">
+                    <span class="text-white font-bold text-lg uppercase">Free Weights</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 11. Testimonials Section (Slider Mockup) --><section id="testimonials" class="bg-gray-900/50 py-16 animate-on-scroll">
+        <h2 class="section-heading text-center">Member <span class="neon-accent">Success Stories</span></h2>
+        
+        <div class="testimonial-slider flex overflow-x-auto snap-x snap-mandatory space-x-6 pb-4 pt-4 mt-8">
+            
+            <!-- Testimonial 1 (Kavya Thammayya) --><div class="testimonial-card glass-card flex-shrink-0 w-11/12 md:w-1/2 lg:w-1/3 p-6 snap-start border-l-4 border-red-600">
+                <p class="italic text-lg mb-4 text-gray-200">"I’ve been training at Muscle Tech Fitness for 1 Year, and it’s been an amazing experience! The gym has great equipment, a motivating environment, and very supportive staff. A special shout-out to Manju bro, my trainer—he’s super dedicated, knowledgeable, and always pushes me to do my best. Thanks to his guidance, I’ve seen real progress in my strength and fitness. Highly recommend this gym."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-red-600 rounded-full mr-3 border border-white/20"></div>
+                    <div>
+                        <div class="font-bold text-red-400">Kavya Thammayya</div>
+                        <div class="text-sm text-gray-400">Dedicated Member</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 (Shrikanth Shrikanth) --><div class="testimonial-card glass-card flex-shrink-0 w-11/12 md:w-1/2 lg:w-1/3 p-6 snap-start border-l-4 border-red-600">
+                <p class="italic text-lg mb-4 text-gray-200">"The gym is well equipped and clean and maintained well. There are advanced equipments and enough cardio machines too. I am training with Manju sir and he is a really good trainer who is helping me to achieve my goals. He guides very well and plans workouts according to my requirements. He is patient too."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-red-600 rounded-full mr-3 border border-white/20"></div>
+                    <div>
+                        <div class="font-bold text-red-400">Shrikanth Shrikanth</div>
+                        <div class="text-sm text-gray-400">Manju Sir's Client</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 (Rohith) --><div class="testimonial-card glass-card flex-shrink-0 w-11/12 md:w-1/2 lg:w-1/3 p-6 snap-start border-l-4 border-red-600">
+                <p class="italic text-lg mb-4 text-gray-200">"I've been going to this gym for a few months now, and I honestly recommend it enough. The equipment is always clean and well-maintained, and there's a wide variety to choose from, whether you're into strength training, cardio, or functional workouts. The staff are super friendly and knowledgeable—always willing to help with tips or form corrections. The trainers here are next level; they genuinely care about your progress and keep you motivated. What I love most is the atmosphere—it's welcoming, never intimidating, and there's a great mix of people at all fitness levels. Plus, the group classes are fantastic and really help keep things fun and fresh."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-red-600 rounded-full mr-3 border border-white/20"></div>
+                    <div>
+                        <div class="font-bold text-red-400">Rohith</div>
+                        <div class="text-sm text-gray-400">Gym Member</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 4 (Geetha V) --><div class="testimonial-card glass-card flex-shrink-0 w-11/12 md:w-1/2 lg:w-1/3 p-6 snap-start border-l-4 border-red-600">
+                <p class="italic text-lg mb-4 text-gray-200">"This gym is the most wonderful place I have ever visited, a very good experience to workout here. Trainer Anish is a very wonderful person to be as a trainer; his way of training is different level, [he] made me lose almost 5 kg."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-red-600 rounded-full mr-3 border border-white/20"></div>
+                    <div>
+                        <div class="font-bold text-red-400">Geetha V</div>
+                        <div class="text-sm text-gray-400">Anish Sir's Client</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 5 (Monika V) --><div class="testimonial-card glass-card flex-shrink-0 w-11/12 md:w-1/2 lg:w-1/3 p-6 snap-start border-l-4 border-red-600">
+                <p class="italic text-lg mb-4 text-gray-200">"I've been training at Muscle Tech for a while now, and I can confidently say it’s one of the best gyms in the area. The facility is clean, spacious, and fully equipped with top-of-the-line machines. The trainers are highly knowledgeable and genuinely invested in your progress. Would highly recommend joining here."</p>
+                <div class="flex items-center">
+                    <div class="w-10 h-10 bg-red-600 rounded-full mr-3 border border-white/20"></div>
+                    <div>
+                        <div class="font-bold text-red-400">Monika V.</div>
+                        <div class="text-sm text-gray-400">Highly Recommended</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <p class="text-center text-sm text-gray-500 mt-4">Scroll right to see more testimonials.</p>
+    </section>
+
+    <!-- 12. Contact + Tools Section --><section id="contact-tools" class="animate-on-scroll pt-16 pb-16">
+        <h2 class="section-heading text-center">Connect & <span class="neon-accent">Calculate</span></h2>
+        <div class="grid lg:grid-cols-2 gap-12 mt-10">
+            
+            <!-- Left Column: Contact Info & Quick Enquiry / Tools --><div class="space-y-8">
+                
+                <!-- Contact Info --><div class="glass-card p-6">
+                    <h3 class="text-xl font-bold mb-3 neon-accent">Contact Details</h3>
+                    <p class="flex items-start mb-2"><span class="text-red-400 mr-3 text-lg">&bull;</span> 
+                        <strong>Address:</strong> 43 Hesarghatta Rd, Havanur Layout, Bagalakunte, Bengaluru, Karnataka 560073
+                    </p>
+                    <p class="flex items-center mb-2"><span class="text-red-400 mr-3 text-lg">&bull;</span> 
+                        <strong>Phone:</strong> <a href="tel:+919731762002" class="hover:underline">+91 97317 62002</a>
+                    </p>
+                    <p class="flex items-center"><span class="text-red-400 mr-3 text-lg">&bull;</span> 
+                        <strong>Hours:</strong> 5:00 AM – 11:00 PM (Mon-Sun)
+                    </p>
+                </div>
+
+                <!-- BMI Calculator --><div class="calculator-tool glass-card p-6">
+                    <h4 class="text-lg font-bold mb-3 neon-accent">BMI Calculator</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label for="weight" class="block text-sm font-medium mb-1">Weight (kg)</label>
+                            <input type="number" id="weight" step="0.1" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500" placeholder="e.g., 75">
+                        </div>
+                        <div class="form-group">
+                            <label for="height" class="block text-sm font-medium mb-1">Height (cm)</label>
+                            <input type="number" id="height" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500" placeholder="e.g., 175">
+                        </div>
+                    </div>
+                    <button onclick="calculateBMI()" class="mt-4 w-full py-2 font-semibold rounded-lg border border-red-500 text-red-400 hover:bg-red-900/40 transition duration-300">
+                        Calculate BMI
+                    </button>
+                    <div id="bmi-result" class="mt-4 p-3 bg-red-900/30 rounded text-center font-semibold text-gray-100 hidden"></div>
+                </div>
+
+                 <!-- TDEE Calculator --><div class="calculator-tool glass-card p-6">
+                    <h4 class="text-lg font-bold mb-3 neon-accent">TDEE Calculator (Daily Calorie Estimate)</h4>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="form-group">
+                            <label for="tdee-weight" class="block text-sm font-medium mb-1">Weight (kg)</label>
+                            <input type="number" id="tdee-weight" step="0.1" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500" placeholder="e.g., 75">
+                        </div>
+                         <div class="form-group">
+                            <label for="tdee-height" class="block text-sm font-medium mb-1">Height (cm)</label>
+                            <input type="number" id="tdee-height" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500" placeholder="e.g., 175">
+                        </div>
+                        <div class="form-group">
+                            <label for="tdee-age" class="block text-sm font-medium mb-1">Age</label>
+                            <input type="number" id="tdee-age" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500" placeholder="e.g., 30">
+                        </div>
+                        <div class="form-group">
+                            <label for="tdee-gender" class="block text-sm font-medium mb-1">Gender</label>
+                            <select id="tdee-gender" class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500">
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                        </div>
+                        <div class="form-group col-span-2">
+                            <label for="tdee-activity" class="block text-sm font-medium mb-1">Activity Level</label>
+                            <select id="tdee-activity" class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500">
+                                <option value="1.2">Sedentary (little or no exercise)</option>
+                                <option value="1.375">Lightly Active (1-3 days/week)</option>
+                                <option value="1.55">Moderately Active (3-5 days/week)</option>
+                                <option value="1.725">Very Active (6-7 days/week)</option>
+                                <option value="1.9">Extremely Active (daily hard exercise)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button onclick="calculateTDEE()" class="mt-4 w-full py-2 font-semibold rounded-lg border border-red-500 text-red-400 hover:bg-red-900/40 transition duration-300">
+                        Calculate TDEE
+                    </button>
+                    <div id="tdee-result" class="mt-4 p-3 bg-red-900/30 rounded text-center font-semibold text-gray-100 hidden"></div>
+                </div>
+
+            </div>
+            
+            <!-- Right Column: Map Placeholder & Enquiry Forms --><div class="space-y-8">
+                
+                <!-- Map Placeholder (UPDATED with Google Maps Link) --><div class="map-placeholder glass-card min-h-64 lg:min-h-80 flex items-center justify-center border-red-600/50 border-2">
+                    <a href="https://www.google.com/maps/place/Muscle+tech+fitness/@13.062088,77.495327,13z/data=!4m10!1m2!2m1!1sMuscle+tech+fitness!3m6!1s0x3bae3d25dce312ed:0x6a5ed2904c565cd4!8m2!3d13.0502548!4d77.50754!15sChNNdXNjbGUgdGVjaCBmaXRuZXNzWhUiE211c2NsZSB0ZWNoIGZpdG5lc3OSAQNneW2qAUsKDS9nLzExcTdmdjR3MWIQATIfEAEiG5QOUOwPFs4sF_diYGQGmgxTRMa8oy2rqiwnlTIXEAIiE211c2NsZSB0ZWNoIGZpdG5lc3PgAQA!16s%2Fg%2F11q7fv4w1b?entry=ttu&g_ep=EgoyMDI1MTExNy4wIKXMDSoASAFQAw%3D%3D" 
+                       target="_blank" class="text-xl text-gray-500 italic hover:text-red-400 transition duration-300 p-4 block text-center">
+                        Click to view location on Google Maps
+                    </a>
+                </div>
+                
+                <!-- Book Free Trial Form --><div class="glass-card p-6">
+                    <h3 class="text-xl font-bold mb-3 neon-accent">Book Free Trial</h3>
+                    <form onsubmit="event.preventDefault(); showMessage('trial-message', 'Trial booked! We will contact you on WhatsApp (+91 97317 62002) within 1 hour to confirm your slot.', true);">
+                        <div class="form-group">
+                            <label for="trial-name" class="block text-sm font-medium mb-1">Your Name</label>
+                            <input type="text" id="trial-name" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500">
+                        </div>
+                        <!-- REMOVED: Phone (WhatsApp) field, as it's redundant when confirmation is via WhatsApp -->
+                        <button type="submit" class="w-full py-3 mt-4 font-black rounded-lg bg-red-600 text-gray-900 hover:bg-red-700 transition duration-300 transform hover:scale-[1.01]">
+                            Book Free Trial Now
+                        </button>
+                        <p id="trial-message" class="text-sm text-red-300 mt-3 text-center"></p>
+                    </form>
+                </div>
+                
+                <!-- Quick Enquiry Form --><div class="glass-card p-6">
+                    <h3 class="text-xl font-bold mb-3 neon-accent">Quick Enquiry</h3>
+                    <form onsubmit="sendEnquiryViaWhatsApp(event)">
+                         <div class="form-group">
+                            <label for="enquiry-name" class="block text-sm font-medium mb-1">Your Name</label>
+                            <input type="text" id="enquiry-name" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500">
+                        </div>
+                        <!-- REMOVED: Phone (WhatsApp) field -->
+                        <div class="form-group">
+                            <label for="enquiry-type" class="block text-sm font-medium mb-1">Type of Enquiry</label>
+                            <select id="enquiry-type" class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500">
+                                <option value="Membership">Membership</option>
+                                <option value="Personal Training">Personal Training</option>
+                                <option value="General Question">General Question</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="w-full py-3 mt-4 font-black rounded-lg bg-red-600 text-gray-900 hover:bg-red-700 transition duration-300 transform hover:scale-[1.01]">
+                            Send Enquiry
+                        </button>
+                        <p id="enquiry-message" class="text-sm text-red-300 mt-3 text-center"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 13. FAQ Section --><section id="faq" class="animate-on-scroll pt-16 pb-16">
+        <h2 class="section-heading text-center">Your <span class="neon-accent">Questions</span> Answered</h2>
+        
+        <div class="max-w-3xl mx-auto mt-10 space-y-4">
+            <!-- FAQ Item 1 --><div class="faq-item glass-card overflow-hidden rounded-xl">
+                <div class="faq-question p-4 flex justify-between items-center cursor-pointer font-semibold bg-white/10 hover:bg-red-900/40 transition duration-300" onclick="toggleFAQ(this)">
+                    Do you offer personal training?
+                    <span class="faq-toggle text-red-400 text-xl transform transition duration-300">+</span>
+                </div>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out p-0">
+                    <p class="p-4 pt-0 text-gray-400">Yes, we offer certified one-on-one personal coaching packages. You can choose from single sessions or discounted bulk packages. Enquire at the front desk or via our WhatsApp chat for details!</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 2 --><div class="faq-item glass-card overflow-hidden rounded-xl">
+                <div class="faq-question p-4 flex justify-between items-center cursor-pointer font-semibold bg-white/10 hover:bg-red-900/40 transition duration-300" onclick="toggleFAQ(this)">
+                    Is there a free trial?
+                    <span class="faq-toggle text-red-400 text-xl transform transition duration-300">+</span>
+                </div>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out p-0">
+                    <p class="p-4 pt-0 text-gray-400">Absolutely! We offer a one-day free trial so you can experience our facility, equipment, and atmosphere before committing. Use the 'Book Free Trial' form above to register.</p>
+                </div>
+            </div>
+            
+            <!-- FAQ Item 3 --><div class="faq-item glass-card overflow-hidden rounded-xl">
+                <div class="faq-question p-4 flex justify-between items-center cursor-pointer font-semibold bg-white/10 hover:bg-red-900/40 transition duration-300" onclick="toggleFAQ(this)">
+                    Do you have women-only timings?
+                    <span class="faq-toggle text-red-400 text-xl transform transition duration-300">+</span>
+                </div>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out p-0">
+                    <p class="p-4 pt-0 text-gray-400">While we are a co-ed facility, we offer dedicated women-only group fitness classes every weekday evening for those who prefer them. The gym floor is open to all during all operating hours.</p>
+                </div>
+            </div>
+
+             <!-- FAQ Item 4 --><div class="faq-item glass-card overflow-hidden rounded-xl">
+                <div class="faq-question p-4 flex justify-between items-center cursor-pointer font-semibold bg-white/10 hover:bg-red-900/40 transition duration-300" onclick="toggleFAQ(this)">
+                    What facilities are included?
+                    <span class="faq-toggle text-red-400 text-xl transform transition duration-300">+</span>
+                </div>
+                <div class="faq-answer max-h-0 overflow-hidden transition-all duration-500 ease-in-out p-0">
+                    <p class="p-4 pt-0 text-gray-400">Your membership includes access to all strength, cardio, and recovery zones, locker rooms, showers, and most group classes. Personal training and nutrition plans are available as add-ons.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 14. Footer --><footer class="py-10 text-center border-t border-gray-800 bg-gray-900/50">
+        <div class="logo font-black text-xl tracking-widest mb-2">
+            <span class="neon-accent mr-2">&#9889;</span> MUSCLETECH FITNESS
+        </div>
+        <p class="text-gray-400 mb-2">Email: <a href="mailto:hello@muscletechfitness.com" class="hover:text-red-400 transition duration-300">hello@muscletechfitness.com</a></p>
+        <p class="text-gray-500 text-sm">&copy; 2025 MuscleTech Fitness. All rights reserved. | Made with hustle at MuscleTech Fitness, Bengaluru.</p>
+    </footer>
+
+    <!-- JavaScript for Functionality --><script>
+        // --- 1. Fade-in on Scroll Animation ---
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.animate-on-scroll').forEach(element => {
+            observer.observe(element);
+        });
+
+        // --- 2. Message Display (Custom instead of alert()) ---
+        function showMessage(elementId, message, isTrial) {
+            const messageElement = document.getElementById(elementId);
+            messageElement.textContent = message;
+            messageElement.classList.remove('hidden');
+            
+            if (isTrial) {
+                // Clear the trial form fields after successful 'submission'
+                document.getElementById('trial-name').value = '';
+                // Since the phone field is removed, we only clear the name field here.
+            } else {
+                 // No clearing needed for Quick Enquiry as it is handled by the submit function itself
+            }
+
+            // Hide message after 5 seconds
+            setTimeout(() => {
+                messageElement.textContent = '';
+                messageElement.classList.add('hidden');
+            }, 5000);
+        }
+
+        // --- 3. BMI Calculator ---
+        function calculateBMI() {
+            const weight = parseFloat(document.getElementById('weight').value);
+            const heightCm = parseFloat(document.getElementById('height').value);
+            const resultDiv = document.getElementById('bmi-result');
+            resultDiv.classList.remove('hidden');
+
+            if (isNaN(weight) || isNaN(heightCm) || weight <= 0 || heightCm <= 0) {
+                resultDiv.innerHTML = 'Please enter valid values.';
+                resultDiv.style.backgroundColor = 'rgba(255, 0, 0, 0.3)';
+                return;
+            }
+
+            const heightM = heightCm / 100;
+            const bmi = weight / (heightM * heightM);
+            let category;
+
+            if (bmi < 18.5) {
+                category = 'Underweight 😔';
+                resultDiv.style.backgroundColor = 'rgba(255, 165, 0, 0.3)'; // Orange
+            }
+            else if (bmi >= 18.5 && bmi < 24.9) {
+                category = 'Normal Weight 👍';
+                resultDiv.style.backgroundColor = 'rgba(50, 205, 50, 0.3)'; // Lime green
+            }
+            else if (bmi >= 25 && bmi < 29.9) {
+                category = 'Overweight ⚠️';
+                resultDiv.style.backgroundColor = 'rgba(255, 99, 71, 0.3)'; // Tomato
+            }
+            else {
+                category = 'Obese 🚨';
+                resultDiv.style.backgroundColor = 'rgba(255, 0, 0, 0.3)'; // Red
+            }
+
+            resultDiv.innerHTML = `Your BMI: <strong>${bmi.toFixed(2)}</strong> (${category})`;
+        }
+
+        // --- 4. TDEE Calculator ---
+        function calculateTDEE() {
+            const weight = parseFloat(document.getElementById('tdee-weight').value);
+            const heightCm = parseFloat(document.getElementById('tdee-height').value);
+            const age = parseInt(document.getElementById('tdee-age').value);
+            const gender = document.getElementById('tdee-gender').value;
+            const activity = parseFloat(document.getElementById('tdee-activity').value);
+            const resultDiv = document.getElementById('tdee-result');
+            resultDiv.classList.remove('hidden');
+            resultDiv.style.backgroundColor = 'rgba(255, 51, 102, 0.3)'; // Default accent color
+
+            if (isNaN(weight) || isNaN(heightCm) || isNaN(age) || weight <= 0 || heightCm <= 0 || age <= 0) {
+                resultDiv.innerHTML = 'Please enter valid values for all fields.';
+                return;
+            }
+            
+            let bmr; // Basal Metabolic Rate
+
+            // Mifflin-St Jeor Equation
+            if (gender === 'male') {
+                bmr = (10 * weight) + (6.25 * heightCm) - (5 * age) + 5;
+            } else { // female
+                bmr = (10 * weight) + (6.25 * heightCm) - (5 * age) - 161;
+            }
+
+            const tdee = bmr * activity;
+
+            resultDiv.innerHTML = `Estimated Daily Calories (TDEE): <strong>${tdee.toFixed(0)} kcal</strong>`;
+        }
+        
+        // --- 5. FAQ Collapsible Toggle ---
+        function toggleFAQ(element) {
+            const item = element.parentElement;
+            const answer = element.nextElementSibling;
+            
+            // Toggle active class on the item
+            item.classList.toggle('active');
+            
+            // If active, set max-height to scrollHeight to animate open, otherwise close it
+            if (item.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+                element.querySelector('.faq-toggle').style.transform = 'rotate(45deg)';
+            } else {
+                answer.style.maxHeight = null;
+                element.querySelector('.faq-toggle').style.transform = 'rotate(0deg)';
+            }
+        }
+        
+        // --- 6. Quick Enquiry WhatsApp Sender (NEW) ---
+        function sendEnquiryViaWhatsApp(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('enquiry-name').value;
+            const type = document.getElementById('enquiry-type').value;
+
+            const messageElement = document.getElementById('enquiry-message');
+
+            if (!name) {
+                messageElement.textContent = 'Please fill in your Name.';
+                messageElement.classList.remove('hidden');
+                messageElement.style.color = 'yellow';
+                setTimeout(() => { messageElement.classList.add('hidden'); }, 4000);
+                return;
+            }
+
+            // Simplified message template using only spaces where possible, avoiding excessive %0A
+            const message = `Hello MuscleTech Fitness, I'm ${name} and I have a quick enquiry regarding: ${type}. I look forward to hearing from you!`;
+            
+            const whatsappUrl = `https://wa.me/919731762002?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappUrl, '_blank');
+            
+            // Show brief success message locally
+            messageElement.textContent = 'Opening WhatsApp chat...';
+            messageElement.classList.remove('hidden');
+            messageElement.style.color = 'var(--color-accent)'; 
+            
+            // Clear form fields
+            document.getElementById('enquiry-name').value = '';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => { messageElement.classList.add('hidden'); }, 5000);
+        }
+    </script>
+</body>
+</html>
