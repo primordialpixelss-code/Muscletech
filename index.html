@@ -588,14 +588,13 @@
                     </a>
                 </div>
                 
-                <!-- Book Free Trial Form --><div class="glass-card p-6">
+                <!-- Book Free Trial Form (UPDATED to use WhatsApp) --><div class="glass-card p-6">
                     <h3 class="text-xl font-bold mb-3 neon-accent">Book Free Trial</h3>
-                    <form onsubmit="event.preventDefault(); showMessage('trial-message', 'Trial booked! We will contact you on WhatsApp (+91 97317 62002) within 1 hour to confirm your slot.', true);">
+                    <form onsubmit="sendTrialRequestViaWhatsApp(event)">
                         <div class="form-group">
                             <label for="trial-name" class="block text-sm font-medium mb-1">Your Name</label>
                             <input type="text" id="trial-name" required class="w-full p-2 bg-gray-700/50 rounded border border-gray-600 focus:border-red-500 focus:ring-red-500">
                         </div>
-                        <!-- REMOVED: Phone (WhatsApp) field, as it's redundant when confirmation is via WhatsApp -->
                         <button type="submit" class="w-full py-3 mt-4 font-black rounded-lg bg-red-600 text-gray-900 hover:bg-red-700 transition duration-300 transform hover:scale-[1.01]">
                             Book Free Trial Now
                         </button>
@@ -804,7 +803,7 @@
             }
         }
         
-        // --- 6. Quick Enquiry WhatsApp Sender (NEW) ---
+        // --- 6. Quick Enquiry WhatsApp Sender ---
         function sendEnquiryViaWhatsApp(event) {
             event.preventDefault();
 
@@ -821,7 +820,7 @@
                 return;
             }
 
-            // Simplified message template using only spaces where possible, avoiding excessive %0A
+            // Simplified message template 
             const message = `Hello MuscleTech Fitness, I'm ${name} and I have a quick enquiry regarding: ${type}. I look forward to hearing from you!`;
             
             const whatsappUrl = `https://wa.me/919731762002?text=${encodeURIComponent(message)}`;
@@ -835,6 +834,40 @@
             
             // Clear form fields
             document.getElementById('enquiry-name').value = '';
+            
+            // Hide message after 5 seconds
+            setTimeout(() => { messageElement.classList.add('hidden'); }, 5000);
+        }
+        
+        // --- 7. Free Trial WhatsApp Sender (NEW) ---
+        function sendTrialRequestViaWhatsApp(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('trial-name').value;
+            const messageElement = document.getElementById('trial-message');
+
+            if (!name) {
+                messageElement.textContent = 'Please fill in your Name.';
+                messageElement.classList.remove('hidden');
+                messageElement.style.color = 'yellow';
+                setTimeout(() => { messageElement.classList.add('hidden'); }, 4000);
+                return;
+            }
+            
+            // Trial message template
+            const message = `Hi MuscleTech Fitness, I'm ${name} and I would like to book a FREE TRIAL session. Please confirm an available slot for me.`;
+            
+            const whatsappUrl = `https://wa.me/919731762002?text=${encodeURIComponent(message)}`;
+
+            window.open(whatsappUrl, '_blank');
+            
+            // Show brief success message locally
+            messageElement.textContent = 'Opening WhatsApp chat to finalize your trial booking...';
+            messageElement.classList.remove('hidden');
+            messageElement.style.color = 'var(--color-accent)'; 
+            
+            // Clear form fields
+            document.getElementById('trial-name').value = '';
             
             // Hide message after 5 seconds
             setTimeout(() => { messageElement.classList.add('hidden'); }, 5000);
